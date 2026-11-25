@@ -1,0 +1,62 @@
+<script type="application/json" class="products-json" data-role="box">
+{% render 'product-json', collection: section.settings.collection %}
+</script>
+{%- if section.settings.box_product -%}
+<script type="application/json" id="box-product-json">
+{
+  "id": {{ section.settings.box_product.id | json }},
+  "title": {{ section.settings.box_product.title | json }},
+  "variants": [
+    {%- for v in section.settings.box_product.variants -%}
+    { "id": {{ v.id }}, "title": {{ v.title | json }}, "price": {{ v.price | divided_by: 100.0 | round: 2 }} }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ]
+}
+</script>
+{%- endif -%}
+
+<section class="builder" id="boxbuilder">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>{{ section.settings.heading }}</h2>
+      <span class="head-note">{{ section.settings.note }}</span>
+    </div>
+    <div class="builder-grid">
+      <div>
+        <div class="size-row" id="sizeRow" role="group" aria-label="Box size">
+          <button class="size-btn" data-size="4"><span class="sz">Box of 4</span><span class="perk">The taster</span></button>
+          <button class="size-btn active" data-size="6"><span class="sz">Box of 6</span><span class="perk">Save 5%</span></button>
+          <button class="size-btn" data-size="8"><span class="sz">Box of 8</span><span class="perk">Save 10% · Free shipping</span></button>
+        </div>
+        <div class="slots" id="boxSlots" aria-label="Your box slots"></div>
+        <div class="box-summary">
+          <div class="box-line"><span>Cookies</span><span id="boxCountLabel">0 / 6</span></div>
+          <div class="box-line"><span>Subtotal</span><span id="boxSubtotal">Rs. 0</span></div>
+          <div class="box-line save" id="boxSaveRow" hidden><span>Box discount</span><span id="boxSave">− Rs. 0</span></div>
+          <div class="box-line total"><span>Total</span><span id="boxTotal">Rs. 0</span></div>
+          <div class="box-actions">
+            <button class="btn-big" id="boxAdd" disabled>Add Box to Cart</button>
+            <button class="btn-clear" id="boxClear">Clear</button>
+          </div>
+          <p class="box-status" id="boxStatus">Pick a size, then tap + on any cookie to start filling your box.</p>
+        </div>
+      </div>
+      <div class="picker" id="boxPicker"></div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Build Your Own Box",
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "Cookie collection for flavour picker", "info": "Leave empty to use all products" },
+    { "type": "product", "id": "box_product", "label": "“Build Your Own Box” product", "info": "Needs Box of 4 / 6 / 8 variants — see README" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Build Your Own Box" },
+    { "type": "text", "id": "note", "label": "Heading note", "default": "Your box, your rules. Mix any flavours — the box price is set on the box product." }
+  ],
+  "presets": [
+    { "name": "Build Your Own Box", "category": "Shurmble" }
+  ]
+}
+{% endschema %}

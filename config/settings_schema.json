@@ -1,0 +1,65 @@
+{
+  "name": "Shurmble",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Colours"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background (Cloud Dancer)",
+      "default": "#f0eee9"
+    },
+    {
+      "type": "color",
+      "id": "ink_color",
+      "label": "Text / ink (warm chocolate)",
+      "default": "#3a2317"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent blue",
+      "default": "#0057d9"
+    },
+    {
+      "type": "color",
+      "id": "accent_deep_color",
+      "label": "Accent blue (dark)",
+      "default": "#003fa3"
+    },
+    {
+      "type": "header",
+      "content": "Store"
+    },
+    {
+      "type": "text",
+      "id": "currency_symbol",
+      "label": "Currency symbol used in prices",
+      "default": "Rs. "
+    },
+    {
+      "type": "text",
+      "id": "currency_code",
+      "label": "Currency code used in prices",
+      "default": "PKR"
+    },
+    {
+      "type": "number",
+      "id": "free_ship_threshold",
+      "label": "Free-shipping progress threshold",
+      "default": 3000
+    },
+    {
+      "type": "header",
+      "content": "Demo content"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_demo_fallback",
+      "label": "Show the 8 demo cookies when the store has no products yet",
+      "default": true
+    }
+  ]
+}

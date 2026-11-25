@@ -1,0 +1,90 @@
+<footer>
+  <div class="wrap">
+    <div class="footer-in">
+      <div>
+        <h3 class="loop-title">{{ section.settings.news_heading }}</h3>
+        <p>{{ section.settings.news_text }}</p>
+        {%- form 'customer', class: 'news-form' -%}
+          {%- if form.posted_successfully? -%}
+            <p class="news-msg" role="status">You're in! First dibs on the next monthly drop. 🍪</p>
+          {%- endif -%}
+          <input type="hidden" name="contact[tags]" value="newsletter" />
+          <input type="email" name="contact[email]" placeholder="E-mail *" aria-label="Email address" required />
+          <button type="submit" aria-label="Subscribe">›</button>
+        {%- endform -%}
+        <p class="news-msg" id="newsMsg" role="status"></p>
+        <div class="socials">
+          <a href="{{ section.settings.facebook | default: '#' }}" aria-label="Shurmble on Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.5V6.8c0-.8.5-1 .9-1H17V2.5h-2.9C11.2 2.5 10 4.4 10 6.5v2H7.5V12H10v9.5h4V12h2.7l.4-3.5H14Z" /></svg>
+          </a>
+          <a href="{{ section.settings.instagram | default: '#' }}" aria-label="Shurmble on Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5" /><circle cx="12" cy="12" r="4" /><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none" /></svg>
+          </a>
+          <a href="{{ section.settings.tiktok | default: '#' }}" aria-label="Shurmble on TikTok">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 3c.4 2.1 1.7 3.5 3.9 3.7v3c-1.5 0-2.9-.5-3.9-1.3v6.3a5.9 5.9 0 1 1-5.9-5.9c.3 0 .7 0 1 .1v3.1a2.9 2.9 0 1 0 1.9 2.7V3h3Z" /></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h3>Useful Links</h3>
+        {%- if section.settings.useful_menu != blank -%}
+          <ul>
+            {%- for link in linklists[section.settings.useful_menu].links -%}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        {%- else -%}
+          <ul>
+            <li><a href="#shop">Nationwide Shipping</a></li>
+            <li><a href="#boxbuilder">Build a Box</a></li>
+            <li><a href="#story">Our Story</a></li>
+            <li><a href="#gifting">Corporate Gifting</a></li>
+          </ul>
+        {%- endif -%}
+      </div>
+      <div>
+        <h3>Store Policies</h3>
+        {%- if section.settings.policy_menu != blank -%}
+          <ul>
+            {%- for link in linklists[section.settings.policy_menu].links -%}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        {%- else -%}
+          <ul>
+            <li><a href="{{ shop.shipping_policy.url | default: '#' }}">Shipping Policy</a></li>
+            <li><a href="{{ shop.privacy_policy.url | default: '#' }}">Privacy Policy</a></li>
+            <li><a href="{{ shop.refund_policy.url | default: '#' }}">Refund Policy</a></li>
+            <li><a href="{{ shop.terms_of_service.url | default: '#' }}">Terms of Service</a></li>
+          </ul>
+        {%- endif -%}
+      </div>
+      <div>
+        <h3>Location and Hours</h3>
+        {{ section.settings.location }}
+        <p><a href="mailto:{{ section.settings.email }}" style="text-decoration:underline;text-underline-offset:4px">{{ section.settings.email }}</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© {{ 'now' | date: '%Y' }} {{ shop.name }} — Fresh-baked happiness, delivered.</span>
+      <span>Developed by <a href="https://www.linkedin.com/in/mudasir-hussain-256a9125a" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:4px;font-weight:700">Mudasir Hussain</a></span>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "text", "id": "news_heading", "label": "Newsletter heading", "default": "Stay in the Loop" },
+    { "type": "textarea", "id": "news_text", "label": "Newsletter text", "default": "We won't spam you, we promise. Just first dibs on monthly drops and secret flavours." },
+    { "type": "url", "id": "facebook", "label": "Facebook URL" },
+    { "type": "url", "id": "instagram", "label": "Instagram URL" },
+    { "type": "url", "id": "tiktok", "label": "TikTok URL" },
+    { "type": "link_list", "id": "useful_menu", "label": "Useful links menu" },
+    { "type": "link_list", "id": "policy_menu", "label": "Store policies menu" },
+    { "type": "richtext", "id": "location", "label": "Location and hours", "default": "<p>Shop 12, Ground Floor, Jinnah Super Market, F-7 Markaz, Islamabad.</p><p><strong>Monday – Sunday:</strong><br />12:00 PM – 11:30 PM</p>" },
+    { "type": "text", "id": "email", "label": "Contact email", "default": "hello@shurmble.pk" }
+  ]
+}
+{% endschema %}

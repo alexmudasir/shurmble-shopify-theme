@@ -1,0 +1,46 @@
+<div class="wrap page-narrow">
+  <h1 style="font-family:'Baloo 2','Archivo',sans-serif;font-weight:800">Your Box</h1>
+  {%- if cart.item_count > 0 -%}
+    <form action="{{ routes.cart_url }}" method="post">
+      <table class="cart-table">
+        <thead>
+          <tr><th>Cookie</th><th>Pack</th><th>Qty</th><th>Price</th><th></th></tr>
+        </thead>
+        <tbody>
+          {%- for item in cart.items -%}
+          <tr>
+            <td>
+              <a href="{{ item.url }}" style="display:flex;gap:.7rem;align-items:center;text-decoration:none;color:inherit">
+                <img src="{{ item.image | image_url: width: 160 }}" alt="{{ item.title }}" />
+                <strong>{{ item.product.title }}</strong>
+              </a>
+            </td>
+            <td>{{ item.variant.title }}</td>
+            <td><input type="number" name="updates[]" value="{{ item.quantity }}" min="0" /></td>
+            <td>{{ item.line_price | money }}</td>
+            <td><a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity=0">Remove</a></td>
+          </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:1rem;flex-wrap:wrap;gap:1rem">
+        <button type="submit" name="update" class="btn-ghost">Update cart</button>
+        <div style="text-align:right">
+          <p style="font-weight:800;font-size:1.2rem;margin:.2rem 0">Subtotal: {{ cart.total_price | money }}</p>
+          <p style="color:var(--muted);font-size:.9rem;margin:.2rem 0">Shipping calculated at checkout.</p>
+          <button type="submit" name="checkout" class="checkout-btn" style="min-width:220px">Checkout</button>
+        </div>
+      </div>
+    </form>
+  {%- else -%}
+    <p class="empty-note">Your box is empty — warm cookies are one click away.</p>
+    <p style="text-align:center"><a class="btn-big" href="{{ routes.root_url }}#shop" style="text-decoration:none">Shop cookies</a></p>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Cart page",
+  "settings": []
+}
+{% endschema %}

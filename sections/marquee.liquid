@@ -1,0 +1,21 @@
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="marqueeTrack">
+    {%- assign items = section.settings.items | newline_to_br | split: '<br />' -%}
+    {%- for item in items -%}
+      {%- assign t = item | strip -%}
+      {%- if t != '' -%}<span>{{ t }} ✦</span>{%- endif -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Marquee strip",
+  "settings": [
+    { "type": "textarea", "id": "items", "label": "Marquee items (one per line)", "default": "Fresh-baked daily\nStuffed thick\nFree shipping over Rs. 3,000\nMonthly drop\nWarm 15 seconds\nNationwide delivery" }
+  ],
+  "presets": [
+    { "name": "Marquee strip", "category": "Shurmble" }
+  ]
+}
+{% endschema %}

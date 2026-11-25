@@ -1,0 +1,56 @@
+<section id="gifting" style="padding-top:0">
+  <div class="wrap promos">
+    {%- for block in section.blocks -%}
+    <div class="promo">
+      <span class="sticker">{{ block.settings.sticker }}</span>
+      <div class="ic">
+        {%- if block.settings.icon == 'party' -%}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21h16" /><path d="M6 21v-6.5A2.5 2.5 0 0 1 8.5 12h7A2.5 2.5 0 0 1 18 14.5V21" /><path d="M12 12V9.5" /><circle cx="12" cy="7.5" r="1.6" /><path d="M5 5.5 4 3M19 5.5 20 3M12 4V2" /></svg>
+        {%- else -%}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="8" width="17" height="4" /><path d="M5 12v8.5h14V12" /><path d="M12 8v12.5" /><path d="M12 8c-4.5 0-5.5-4.5-3-5 1.8-.4 3 1.8 3 5Zm0 0c4.5 0 5.5-4.5 3-5-1.8-.4-3 1.8-3 5Z" /></svg>
+        {%- endif -%}
+      </div>
+      <div>
+        <h3>{{ block.settings.title }}</h3>
+        <p>{{ block.settings.text }}</p>
+        {%- assign qv_handle = block.settings.product.handle | default: block.settings.fallback_handle -%}
+        <button class="btn-navy" data-quickview="{{ qv_handle }}">{{ block.settings.button_label }}</button>
+      </div>
+    </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Corporate gifting",
+  "blocks": [
+    {
+      "type": "promo",
+      "name": "Promo",
+      "settings": [
+        { "type": "text", "id": "sticker", "label": "Sticker", "default": "Send cookies, not emails" },
+        { "type": "select", "id": "icon", "label": "Icon", "options": [
+          { "value": "gift", "label": "Gift box" },
+          { "value": "party", "label": "Party" }
+        ], "default": "gift" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Corporate Gifts" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Treat your team members, impress your clients, or build new connections by sending them our scrumptious Shurmble cookies in branded gift boxes." },
+        { "type": "product", "id": "product", "label": "Product to quick-view" },
+        { "type": "text", "id": "fallback_handle", "label": "Fallback product handle (used until a product is picked)", "default": "gift-box" },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop Now" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Corporate gifting",
+      "category": "Shurmble",
+      "blocks": [
+        { "type": "promo", "settings": { "sticker": "Send cookies, not emails", "icon": "gift", "title": "Corporate Gifts", "text": "Treat your team members, impress your clients, or build new connections by sending them our scrumptious Shurmble cookies in branded gift boxes.", "fallback_handle": "gift-box", "button_label": "Shop Now" } },
+        { "type": "promo", "settings": { "sticker": "Party approved", "icon": "party", "title": "Events & Catering", "text": "Add a touch of sweetness to every event with our assorted cookie boxes. Birthday party, conference, bridal shower or office meeting — we've got you covered!", "fallback_handle": "choc-lovers", "button_label": "Shop Now" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

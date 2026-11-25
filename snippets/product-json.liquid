@@ -1,0 +1,72 @@
+{%- comment -%}
+  Serializes a collection's products into the JSON array theme.js expects.
+  Usage: {% render 'product-json', collection: section.settings.collection %}
+  Falls back to the 8 demo cookies when the collection is empty (and the
+  "use demo fallback" theme setting is on). Prices are in shop currency units.
+  Product tags drive the demo fields:
+    badge:<text>  cat:<stuffed|classics|boxes>  tint:<#hex>  note:<tasting note>
+  Ratings come from metafields reviews.rating / reviews.count when set.
+{%- endcomment -%}
+{%- assign coll = collection -%}
+{%- if coll == blank -%}{%- assign coll = collections.all -%}{%- endif -%}
+{%- if coll.products_count > 0 -%}
+[
+{%- for product in coll.products -%}
+  {%- assign badge = '' -%}
+  {%- assign cat = 'classics' -%}
+  {%- assign tint = '#e9edf6' -%}
+  {%- for tag in product.tags -%}
+    {%- if tag contains 'badge:' -%}{%- assign badge = tag | remove: 'badge:' | strip -%}
+    {%- elsif tag contains 'cat:' -%}{%- assign cat = tag | remove: 'cat:' | strip -%}
+    {%- elsif tag contains 'tint:' -%}{%- assign tint = tag | remove: 'tint:' | strip -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- if product.featured_image -%}
+    {%- assign img_url = product.featured_image | image_url: width: 1000 -%}
+    {%- assign img_alt = product.featured_image.alt | default: product.title -%}
+  {%- else -%}
+    {%- assign img_url = 'cookie-oreo-cheesecake.jpg' | asset_url -%}
+    {%- assign img_alt = product.title -%}
+  {%- endif -%}
+  {%- assign desc = product.description | strip_html | strip | truncatewords: 18 -%}
+  {%- assign long = product.description | strip_html | strip | truncate: 300 -%}
+  {
+    "id": {{ product.handle | json }},
+    "handle": {{ product.handle | json }},
+    "url": {{ product.url | json }},
+    "name": {{ product.title | json }},
+    "hero": {{ product.metafields.custom.hero_title.value | default: product.title | json }},
+    "cat": {{ cat | json }},
+    "badge": {{ badge | json }},
+    "tint": {{ tint | json }},
+    "notes": [
+      {%- assign first_note = true -%}
+      {%- for tag in product.tags -%}
+        {%- if tag contains 'note:' -%}
+          {%- unless first_note -%},{%- endunless -%}
+          {{ tag | remove: 'note:' | strip | json }}
+          {%- assign first_note = false -%}
+        {%- endif -%}
+      {%- endfor -%}
+    ],
+    "img": {{ img_url | json }},
+    "alt": {{ img_alt | json }},
+    "rating": {{ product.metafields.reviews.rating.value | default: 0 | json }},
+    "reviews": {{ product.metafields.reviews.count.value | default: 0 | json }},
+    "desc": {{ desc | json }},
+    "long": {{ long | json }},
+    "packs": [
+      {%- for variant in product.variants -%}
+        {%- assign vtitle = variant.title -%}
+        {%- if vtitle == 'Default Title' -%}{%- assign vtitle = 'Single Box' -%}{%- endif -%}
+        [{{ vtitle | json }}, {{ variant.price | divided_by: 100.0 | round: 2 }}, {{ variant.id }}]{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ]
+  }{% unless forloop.last %},{% endunless %}
+{%- endfor -%}
+]
+{%- elsif settings.use_demo_fallback != false -%}
+{%- render 'demo-products-json' -%}
+{%- else -%}
+[]
+{%- endif -%}

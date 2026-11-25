@@ -1,0 +1,37 @@
+<script type="application/json" class="products-json" data-role="shop">
+{% render 'product-json', collection: collection %}
+</script>
+
+<section id="shop" class="alt">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>{{ collection.title }}</h2>
+      <a href="{{ routes.root_url }}#bestsellers">Best Sellers ↑</a>
+    </div>
+    {%- if collection.description != blank -%}
+      <p style="color:var(--ink-soft);line-height:1.6">{{ collection.description }}</p>
+    {%- endif -%}
+    <div class="toolbar" id="filterBar" role="group" aria-label="Filter cookies">
+      <button class="chip active" data-filter="all">All Cookies</button>
+      <button class="chip" data-filter="stuffed">Stuffed</button>
+      <button class="chip" data-filter="classics">Classics</button>
+      <button class="chip" data-filter="boxes">Boxes &amp; Gifts</button>
+      <select id="sortSelect" aria-label="Sort products">
+        <option value="featured">Sort: Featured</option>
+        <option value="price-low">Price: Low to High</option>
+        <option value="price-high">Price: High to Low</option>
+        <option value="rating">Top Rated</option>
+        <option value="name">Name A–Z</option>
+      </select>
+    </div>
+    <div class="grid" id="shopGrid"></div>
+    <p id="noResults" hidden style="text-align:center;color:var(--muted);font-weight:700">No cookies match that filter — try another one.</p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection page",
+  "settings": []
+}
+{% endschema %}

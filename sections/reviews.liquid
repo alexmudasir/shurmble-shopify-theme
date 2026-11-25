@@ -1,0 +1,48 @@
+<section id="reviews">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>{{ section.settings.heading }}</h2>
+    </div>
+    <div class="reviews">
+      {%- for block in section.blocks -%}
+      <article class="review">
+        <div class="stars" aria-label="Rated {{ block.settings.stars }} out of 5">{{ '★★★★★' | slice: 0, block.settings.stars }}</div>
+        <p>“{{ block.settings.text }}”</p>
+        <div class="who">{{ block.settings.name }}<span>{{ block.settings.meta }}</span></div>
+      </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Reviews",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Cookie Lovers Say" }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "range", "id": "stars", "label": "Stars", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "textarea", "id": "text", "label": "Review text", "default": "The Oreo Cheesecake Overload is dangerous. Thick, gooey in the middle, and the cheesecake filling tastes like an actual cheesecake." },
+        { "type": "text", "id": "name", "label": "Reviewer name", "default": "Ayesha K." },
+        { "type": "text", "id": "meta", "label": "Reviewer detail", "default": "Karachi — Verified Buyer" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews",
+      "category": "Shurmble",
+      "blocks": [
+        { "type": "review", "settings": { "stars": 5, "text": "The Oreo Cheesecake Overload is dangerous. Thick, gooey in the middle, and the cheesecake filling tastes like an actual cheesecake. Ordered twice this month already.", "name": "Ayesha K.", "meta": "Karachi — Verified Buyer" } },
+        { "type": "review", "settings": { "stars": 5, "text": "Sent the gift box to our clients in Lahore and got thank-you messages from all of them. Packaging is beautiful and the cookies arrived fresh in three days.", "name": "Bilal R.", "meta": "Islamabad — Corporate Order" } },
+        { "type": "review", "settings": { "stars": 5, "text": "S'Mores cookie warmed for 15 seconds = campfire in cookie form. The marshmallow pull is real. This is my whole personality now.", "name": "Mahnoor S.", "meta": "Lahore — Verified Buyer" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

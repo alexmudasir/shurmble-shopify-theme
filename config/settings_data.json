@@ -1,0 +1,27 @@
+{
+  "current": {
+    "bg_color": "#f0eee9",
+    "ink_color": "#3a2317",
+    "accent_color": "#0057d9",
+    "accent_deep_color": "#003fa3",
+    "currency_symbol": "Rs. ",
+    "currency_code": "PKR",
+    "free_ship_threshold": 3000,
+    "use_demo_fallback": true
+  },
+  "presets": {},
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "settings": {}
+    },
+    "header": {
+      "type": "header",
+      "settings": {}
+    },
+    "footer": {
+      "type": "footer",
+      "settings": {}
+    }
+  }
+}

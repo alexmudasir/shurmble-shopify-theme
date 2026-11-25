@@ -1,0 +1,99 @@
+<script type="application/json" class="products-json" data-role="shop">
+{% render 'product-json' %}
+</script>
+
+<div class="wrap pd-page">
+  <div class="pd-grid">
+    <div class="pd-media">
+      {%- if product.featured_image -%}
+        <img src="{{ product.featured_image | image_url: width: 1200 }}" alt="{{ product.featured_image.alt | default: product.title }}" />
+      {%- endif -%}
+    </div>
+    <div class="pd-info">
+      <h1>{{ product.title }}</h1>
+      <div class="pd-price" id="pdPrice">{{ product.selected_or_first_available_variant.price | money }}</div>
+      <div class="pd-desc">{{ product.description }}</div>
+      <form action="{{ routes.cart_add_url }}" method="post" id="pdForm" class="pd-form">
+        <input type="hidden" name="id" id="pdVariantId" value="{{ product.selected_or_first_available_variant.id }}" />
+        {%- if product.variants.size > 1 -%}
+          <p class="opt-label">Pack Size</p>
+          <div class="pack-row" id="pdPacks">
+            {%- for variant in product.variants -%}
+              <button type="button" class="pack-btn{% if variant == product.selected_or_first_available_variant %} active{% endif %}" data-variant-id="{{ variant.id }}" data-price="{{ variant.price | money }}">{{ variant.title }} · {{ variant.price | money }}</button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+        <p class="opt-label">Quantity</p>
+        <div class="qty-row">
+          <button type="button" class="qty-btn" id="pdMinus" aria-label="Decrease quantity">−</button>
+          <span class="qty-num" id="pdQty">1</span>
+          <button type="button" class="qty-btn" id="pdPlus" aria-label="Increase quantity">+</button>
+          <input type="hidden" name="quantity" id="pdQtyInput" value="1" />
+        </div>
+        <button type="submit" class="add-btn" style="width:100%" {% unless product.available %}disabled{% endunless %}>
+          {%- if product.available -%}Add to Box{%- else -%}Sold Out{%- endif -%}
+        </button>
+      </form>
+      <ul class="note-list">
+        <li>Baked fresh on the morning your order ships</li>
+        <li>Free nationwide shipping over Rs. 3,000</li>
+        <li>Warm 15 seconds for the full gooey effect</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var form = document.getElementById('pdForm');
+  if (!form) return;
+  var variantInput = document.getElementById('pdVariantId');
+  var priceEl = document.getElementById('pdPrice');
+  var qtyEl = document.getElementById('pdQty');
+  var qtyInput = document.getElementById('pdQtyInput');
+  var qty = 1;
+  var packs = document.getElementById('pdPacks');
+  if (packs){
+    packs.addEventListener('click', function(e){
+      var b = e.target.closest('[data-variant-id]');
+      if (!b) return;
+      var btns = packs.querySelectorAll('.pack-btn');
+      for (var i = 0; i < btns.length; i++) btns[i].classList.remove('active');
+      b.classList.add('active');
+      variantInput.value = b.getAttribute('data-variant-id');
+      if (priceEl) priceEl.textContent = b.getAttribute('data-price');
+    });
+  }
+  function setQty(n){
+    qty = Math.max(1, Math.min(20, n));
+    if (qtyEl) qtyEl.textContent = qty;
+    if (qtyInput) qtyInput.value = qty;
+  }
+  var minus = document.getElementById('pdMinus');
+  var plus = document.getElementById('pdPlus');
+  if (minus) minus.addEventListener('click', function(){ setQty(qty - 1); });
+  if (plus) plus.addEventListener('click', function(){ setQty(qty + 1); });
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ id: variantInput.value, quantity: qty })
+    }).then(function(r){ if (!r.ok) throw new Error('add failed'); return r.json(); })
+    .then(function(){
+      if (window.fetchCart) fetchCart();
+      if (window.openCart) openCart();
+      else if (window.toast) toast('Added to your box 🍪');
+    }).catch(function(){
+      if (window.toast) toast('Could not add that to the cart — please try again.');
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Product page",
+  "settings": []
+}
+{% endschema %}

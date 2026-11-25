@@ -1,0 +1,16 @@
+<div class="announce" aria-hidden="true">
+  <div class="announce-track" id="announceTrack">
+    <span>{{ section.settings.message_1 }}</span>
+    <span>{{ section.settings.message_2 }}</span>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": [
+    { "type": "text", "id": "message_1", "label": "Message 1", "default": "Important Notice: Card payment orders are dispatched on the next working day, while bank transfer orders are dispatched within 1–2 working days after payment confirmation. Nationwide delivery typically takes 3–7 working days." },
+    { "type": "text", "id": "message_2", "label": "Message 2", "default": "Free nationwide shipping on all orders over Rs. 3,000 — baked fresh every morning in Islamabad." }
+  ]
+}
+{% endschema %}

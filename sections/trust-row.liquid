@@ -1,0 +1,58 @@
+<div class="trust">
+  <div class="wrap trust-in">
+    {%- for block in section.blocks -%}
+    <div class="trust-item">
+      <div class="ic">
+        {%- case block.settings.icon -%}
+          {%- when 'truck' -%}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16V7h11v9" /><path d="M14 10h4l3 3v3h-7" /><circle cx="7" cy="17.5" r="1.8" /><circle cx="17" cy="17.5" r="1.8" /><path d="M8.8 17.5h6.4" /></svg>
+          {%- when 'shield' -%}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 5.8v5.4c0 4.6 3 7.7 7 9.3 4-1.6 7-4.7 7-9.3V5.8L12 3Z" /><path d="m9 11.5 2.2 2.2L15.5 9.5" /></svg>
+          {%- when 'refresh' -%}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8.5v3a9 9 0 1 1-2.6-6.3" /><path d="M21 3v5.5h-5.5" /></svg>
+          {%- else -%}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c1 3-2 4.5-2 7a4.5 4.5 0 0 0 9 0c0-1.5-.5-2.5-1.2-3.8C16.5 8 15 9.5 14.5 8 14 6.2 13 4.5 12 3Z" /><path d="M9.5 13.5A4.5 4.5 0 0 1 5 18.5c2 .8 4.5 1 7 1s5-.2 7-1" /></svg>
+        {%- endcase -%}
+      </div>
+      <div>
+        <h3>{{ block.settings.title }}</h3>
+        <p>{{ block.settings.text }}</p>
+      </div>
+    </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Trust row",
+  "blocks": [
+    {
+      "type": "trust_item",
+      "name": "Trust item",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "options": [
+          { "value": "flame", "label": "Flame" },
+          { "value": "truck", "label": "Delivery truck" },
+          { "value": "shield", "label": "Shield" },
+          { "value": "refresh", "label": "Refresh / guarantee" }
+        ], "default": "flame" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Baked Fresh Daily" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Out of the Islamabad oven the morning your order ships." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust row",
+      "category": "Shurmble",
+      "blocks": [
+        { "type": "trust_item", "settings": { "icon": "flame", "title": "Baked Fresh Daily", "text": "Out of the Islamabad oven the morning your order ships." } },
+        { "type": "trust_item", "settings": { "icon": "truck", "title": "Free Shipping Rs. 3,000+", "text": "Nationwide delivery in 3–7 working days, tracked." } },
+        { "type": "trust_item", "settings": { "icon": "shield", "title": "Cash on Delivery", "text": "Pay at your door — card and bank transfer accepted too." } },
+        { "type": "trust_item", "settings": { "icon": "refresh", "title": "Gooey Guarantee", "text": "Not soft, thick and stuffed? We re-bake or refund." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,42 @@
+<script type="application/json" class="products-json" data-role="shop">
+{% render 'product-json' %}
+</script>
+
+<div class="wrap page-narrow">
+  {%- if search.performed -%}
+    <h1 style="font-family:'Baloo 2','Archivo',sans-serif;font-weight:800">Results for “{{ search.terms }}”</h1>
+    {%- if search.results_count > 0 -%}
+      <div class="grid">
+        {%- for product in search.results -%}
+          {%- if product.object_type == 'product' -%}
+          <article class="card">
+            <div class="card-media">
+              {%- if product.featured_image -%}
+                <a href="{{ product.url }}"><img src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.featured_image.alt | default: product.title }}" loading="lazy" /></a>
+              {%- endif -%}
+            </div>
+            <div class="card-body">
+              <h3><a href="{{ product.url }}">{{ product.title }}</a></h3>
+              <p class="desc">{{ product.description | strip_html | truncatewords: 18 }}</p>
+              <div class="price">{{ product.price | money }}</div>
+              <button class="add-btn" data-add="{{ product.handle }}">Add to Box</button>
+            </div>
+          </article>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <p class="empty-note">No cookies found for “{{ search.terms }}” — try “chocolate” or “gift”.</p>
+    {%- endif -%}
+  {%- else -%}
+    <h1 style="font-family:'Baloo 2','Archivo',sans-serif;font-weight:800">Search cookies</h1>
+    <p style="color:var(--ink-soft)">Use the search in the header to find a flavour.</p>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Search page",
+  "settings": []
+}
+{% endschema %}

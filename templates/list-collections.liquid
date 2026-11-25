@@ -1,0 +1,16 @@
+<div class="wrap page-narrow">
+  <h1 style="font-family:'Baloo 2','Archivo',sans-serif;font-weight:800">Shop by collection</h1>
+  <div class="grid">
+    {%- for collection in collections -%}
+      {%- unless collection.handle == 'all' -%}
+      <article class="card">
+        <div class="card-body">
+          <h3><a href="{{ collection.url }}">{{ collection.title }}</a></h3>
+          <p class="desc">{{ collection.description | strip_html | truncatewords: 18 }}</p>
+          <p class="desc">{{ collection.products_count }} products</p>
+        </div>
+      </article>
+      {%- endunless -%}
+    {%- endfor -%}
+  </div>
+</div>

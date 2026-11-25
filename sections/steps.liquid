@@ -1,0 +1,59 @@
+<div class="steps">
+  <div class="wrap steps-in">
+    {%- for block in section.blocks -%}
+    <div class="step">
+      <span class="num">{% if forloop.index < 10 %}0{{ forloop.index }}{% else %}{{ forloop.index }}{% endif %}</span>
+      <div class="ic">
+        {%- case block.settings.icon -%}
+          {%- when 'cookie' -%}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8.5" /><circle cx="9" cy="10" r=".6" fill="currentColor" /><circle cx="14.5" cy="9" r=".6" fill="currentColor" /><circle cx="13" cy="14.5" r=".6" fill="currentColor" /><circle cx="8.5" cy="15" r=".6" fill="currentColor" /></svg>
+          {%- when 'truck' -%}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16V7h11v9" /><path d="M14 10h4l3 3v3h-7" /><circle cx="7" cy="17.5" r="1.8" /><circle cx="17" cy="17.5" r="1.8" /><path d="M8.8 17.5h6.4" /></svg>
+          {%- when 'home' -%}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5 12 4l8 6.5" /><path d="M6 9.5V20h12V9.5" /><path d="M10 20v-5h4v5" /></svg>
+          {%- else -%}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11.5 11 14 15.5 9" /><path d="M12 21a9 9 0 1 1 9-9" /><path d="M21 3.5 12 12" /></svg>
+        {%- endcase -%}
+      </div>
+      <div>
+        <h3>{{ block.settings.title }}</h3>
+        <p>{{ block.settings.text }}</p>
+      </div>
+    </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "How it works",
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "options": [
+          { "value": "check", "label": "Check" },
+          { "value": "cookie", "label": "Cookie" },
+          { "value": "truck", "label": "Delivery truck" },
+          { "value": "home", "label": "Home" }
+        ], "default": "check" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Order Confirmation" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Place the order, send payment, and get confirmation." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "How it works",
+      "category": "Shurmble",
+      "blocks": [
+        { "type": "step", "settings": { "icon": "check", "title": "Order Confirmation", "text": "Place the order, send payment, and get confirmation." } },
+        { "type": "step", "settings": { "icon": "cookie", "title": "Baked & Packed", "text": "Fresh out of the oven and carefully packed." } },
+        { "type": "step", "settings": { "icon": "truck", "title": "En Route", "text": "Order dispatched, delivery in 3–7 days." } },
+        { "type": "step", "settings": { "icon": "home", "title": "Delivery", "text": "Get ready to receive your cookies." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,52 @@
+<script type="application/json" class="products-json" data-role="hero">
+{% render 'product-json', collection: section.settings.collection %}
+</script>
+
+<div class="hero" id="switcher">
+  <div class="wrap hero-in">
+    <h1 class="claim"><span class="outline">{{ section.settings.claim_1 }}</span>{{ section.settings.claim_2 }}<span class="blue">{{ section.settings.claim_highlight }}</span></h1>
+    <p class="claim-sub">{{ section.settings.sub }}</p>
+    <div class="switch-meta" aria-live="polite">
+      <span id="swNo">Cookie N0.01</span><span class="dots" aria-hidden="true"></span><span class="fname" id="swName">Oreo Cheesecake Overload</span>
+    </div>
+    <div class="switch-stage">
+      <button class="arrow-btn" id="swPrev" aria-label="Previous flavour">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5" /><path d="m11 6-6 6 6 6" /></svg>
+      </button>
+      <div class="stage-disc">
+        <img id="swImg" src="{{ 'cookie-oreo-cheesecake.jpg' | asset_url }}" alt="Oreo cheesecake cookies studded with Oreo chunks, one split open to show the filling" />
+        <span class="sticker tl" id="swSticker">Monthly Drop</span>
+        <span class="sticker br">100% soft-baked</span>
+      </div>
+      <button class="arrow-btn" id="swNext" aria-label="Next flavour">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15" /><path d="m13 6 6 6-6 6" /></svg>
+      </button>
+    </div>
+    <div class="switch-info">
+      <div class="notes" id="swNotes"></div>
+      <p class="switch-desc" id="swDesc"></p>
+      <div class="switch-buy">
+        <span class="switch-price"><small id="swPackLabel">Box of 4</small><span id="swPrice">Rs.1,950.00 PKR</span></span>
+        <button class="btn-big" id="swAdd">Add to Box</button>
+        <button class="btn-ghost" id="swQuick">Quick View</button>
+      </div>
+    </div>
+    <div class="switch-nums" id="swNums" role="group" aria-label="Choose a flavour by number"></div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Hero flavour switcher",
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "Flavour collection (leave empty to use all products)" },
+    { "type": "text", "id": "claim_1", "label": "Headline, outlined part", "default": "The cookie" },
+    { "type": "text", "id": "claim_2", "label": "Headline, middle part", "default": "that makes other cookies" },
+    { "type": "text", "id": "claim_highlight", "label": "Headline, highlighted part", "default": "jealous" },
+    { "type": "textarea", "id": "sub", "label": "Subheadline", "default": "Eight thick, stuffed, soft-baked flavours. One monthly drop. Zero self-control required. Pick a number and meet your next obsession." }
+  ],
+  "presets": [
+    { "name": "Hero flavour switcher", "category": "Shurmble" }
+  ]
+}
+{% endschema %}

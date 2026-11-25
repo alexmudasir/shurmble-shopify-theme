@@ -1,0 +1,198 @@
+{
+    "order": [
+        "hero",
+        "marquee",
+        "trust",
+        "box",
+        "best",
+        "steps",
+        "shop",
+        "gifting",
+        "story",
+        "reviews"
+    ],
+    "sections": {
+        "best": {
+            "settings": {},
+            "type": "best-sellers"
+        },
+        "box": {
+            "settings": {},
+            "type": "build-your-own-box"
+        },
+        "gifting": {
+            "block_order": [
+                "promo_1",
+                "promo_2"
+            ],
+            "blocks": {
+                "promo_1": {
+                    "settings": {
+                        "button_label": "Shop Now",
+                        "fallback_handle": "the-shurmble-gift-box",
+                        "icon": "gift",
+                        "sticker": "Send cookies, not emails",
+                        "text": "Treat your team members, impress your clients, or build new connections by sending them our scrumptious Shurmble cookies in branded gift boxes.",
+                        "title": "Corporate Gifts"
+                    },
+                    "type": "promo"
+                },
+                "promo_2": {
+                    "settings": {
+                        "button_label": "Shop Now",
+                        "fallback_handle": "chocolate-lovers-assortment",
+                        "icon": "party",
+                        "sticker": "Party approved",
+                        "text": "Add a touch of sweetness to every event with our assorted cookie boxes. Birthday party, conference, bridal shower or office meeting \u2014 we've got you covered!",
+                        "title": "Events & Catering"
+                    },
+                    "type": "promo"
+                }
+            },
+            "settings": {},
+            "type": "gifting"
+        },
+        "hero": {
+            "settings": {},
+            "type": "hero-flavour-switcher"
+        },
+        "marquee": {
+            "settings": {},
+            "type": "marquee"
+        },
+        "reviews": {
+            "block_order": [
+                "review_1",
+                "review_2",
+                "review_3"
+            ],
+            "blocks": {
+                "review_1": {
+                    "settings": {
+                        "meta": "Karachi \u2014 Verified Buyer",
+                        "name": "Ayesha K.",
+                        "stars": 5,
+                        "text": "The Oreo Cheesecake Overload is dangerous. Thick, gooey in the middle, and the cheesecake filling tastes like an actual cheesecake. Ordered twice this month already."
+                    },
+                    "type": "review"
+                },
+                "review_2": {
+                    "settings": {
+                        "meta": "Islamabad \u2014 Corporate Order",
+                        "name": "Bilal R.",
+                        "stars": 5,
+                        "text": "Sent the gift box to our clients in Lahore and got thank-you messages from all of them. Packaging is beautiful and the cookies arrived fresh in three days."
+                    },
+                    "type": "review"
+                },
+                "review_3": {
+                    "settings": {
+                        "meta": "Lahore \u2014 Verified Buyer",
+                        "name": "Mahnoor S.",
+                        "stars": 5,
+                        "text": "S'Mores cookie warmed for 15 seconds = campfire in cookie form. The marshmallow pull is real. This is my whole personality now."
+                    },
+                    "type": "review"
+                }
+            },
+            "settings": {},
+            "type": "reviews"
+        },
+        "shop": {
+            "settings": {},
+            "type": "product-grid"
+        },
+        "steps": {
+            "block_order": [
+                "step_1",
+                "step_2",
+                "step_3",
+                "step_4"
+            ],
+            "blocks": {
+                "step_1": {
+                    "settings": {
+                        "icon": "check",
+                        "text": "Place the order, send payment, and get confirmation.",
+                        "title": "Order Confirmation"
+                    },
+                    "type": "step"
+                },
+                "step_2": {
+                    "settings": {
+                        "icon": "cookie",
+                        "text": "Fresh out of the oven and carefully packed.",
+                        "title": "Baked & Packed"
+                    },
+                    "type": "step"
+                },
+                "step_3": {
+                    "settings": {
+                        "icon": "truck",
+                        "text": "Order dispatched, delivery in 3\u20137 days.",
+                        "title": "En Route"
+                    },
+                    "type": "step"
+                },
+                "step_4": {
+                    "settings": {
+                        "icon": "home",
+                        "text": "Get ready to receive your cookies.",
+                        "title": "Delivery"
+                    },
+                    "type": "step"
+                }
+            },
+            "settings": {},
+            "type": "steps"
+        },
+        "story": {
+            "settings": {},
+            "type": "story"
+        },
+        "trust": {
+            "block_order": [
+                "trust_1",
+                "trust_2",
+                "trust_3",
+                "trust_4"
+            ],
+            "blocks": {
+                "trust_1": {
+                    "settings": {
+                        "icon": "flame",
+                        "text": "Out of the Islamabad oven the morning your order ships.",
+                        "title": "Baked Fresh Daily"
+                    },
+                    "type": "trust_item"
+                },
+                "trust_2": {
+                    "settings": {
+                        "icon": "truck",
+                        "text": "Nationwide delivery in 3\u20137 working days, tracked.",
+                        "title": "Free Shipping Rs. 3,000+"
+                    },
+                    "type": "trust_item"
+                },
+                "trust_3": {
+                    "settings": {
+                        "icon": "shield",
+                        "text": "Pay at your door \u2014 card and bank transfer accepted too.",
+                        "title": "Cash on Delivery"
+                    },
+                    "type": "trust_item"
+                },
+                "trust_4": {
+                    "settings": {
+                        "icon": "refresh",
+                        "text": "Not soft, thick and stuffed? We re-bake or refund.",
+                        "title": "Gooey Guarantee"
+                    },
+                    "type": "trust_item"
+                }
+            },
+            "settings": {},
+            "type": "trust-row"
+        }
+    }
+}
